@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="script.js"></script>
+
+    <title>Sudoku</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="card-header">
+          <button type="button" class="btn btn-success" onclick="loadTable();">Start game</button>
+          <button type="button" class="btn btn-danger" onclick="restartGame();"><i class="las la-redo-alt"></i></button>
+        </div>
+        <div class="card-body">
+          <table id = "table">
+            
+          </table>
+        </div>
+      </div>
+    </div>
+
+
+    <script type="text/javascript">
+      
+      var table = [];
+      for (var i = 1; i <= 9; i++) {
+        table[i] = [];
+        for (var j = 1; j <= 9; j++) {
+          table[i][j] = 0;
+        }
+      }
+
+      function loadTable() {
+        // number input;
+        for (var i = 1; i <= 9; i++) {
+          $('#table').append(`
+            <tr></tr>
+          `)
+          for (var j = 1; j <= 9; j++) {
+              $('#table').append(`
+                <td><button type="button" class="btn btn-secondary btn-lg" id = "` + i + + j +`">0</button></td>
+              `);
+          }
+        }
+      }
+
+      function restartGame() {
+        location.reload();
+      }
+
+    </script>
+  </body>
+</html>
