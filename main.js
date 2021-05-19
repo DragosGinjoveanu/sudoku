@@ -96,11 +96,13 @@ function checkByGameRules() {
          for(var k = j + 1; k <= 9; k++) { //checks rows
             if(table[i][j] == table[i][k]&& table[i][j] != 0) {
               ok = 0;
+              break;
             }
           }
           for (var k = i + 1; k <= 9; k++) { //checks columns
             if(table[i][j] == table[k][j] && table[i][j] != 0) {
               ok = 0;
+              break;
             }
           }
           if((i == 1 || i == 4 || i == 7) && (j == 1 || j == 4 || j == 7)) { //checks 3x3 blocks
@@ -110,6 +112,7 @@ function checkByGameRules() {
                           for(var d = b + 1; d <= j + 2; d++) {
                               if(table[a][b] == table[c][d] && table[a][b] != 0) {
                                   ok = 0;
+                                  break;
                               }
                           }
                       }
