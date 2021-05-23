@@ -41,11 +41,11 @@ function randomise() {
 }
 
 function randomValue(i, j) {
-  var row =  Math.floor(Math.random() * ((i + 2) - i + 1) + i);
-  var column = Math.floor(Math.random() * ((j + 2) - j + 1) + j);
+  var row = randomNumber(i);
+  var column = randomNumber(j); 
   var nr = Math.floor(Math.random() * 9) + 1;
   table[row][column] = nr;
-  if(checkByGameRules() == 1) {
+  if (checkByGameRules() == 1) {
     var id = row + String(column);
     document.getElementById(id).innerHTML = nr;
     document.getElementById(id).className = "btn btn-danger btn-lg";
@@ -53,6 +53,10 @@ function randomValue(i, j) {
     table[row][column] = 0;
     randomValue(i, j);
   }
+}
+
+function randomNumber(nr) {
+  return Math.floor(Math.random() * ((nr + 2) - nr + 1) + nr);
 }
 
 //stocks the selected number
@@ -90,41 +94,55 @@ function introduceNumber(id) {
 
 //checks if the numbers from the board are displayed correcty
 function checkByGameRules() {
-  var ok = 1;
-  for(var i = 1; i <= 9; i++) {
-      for(var j = 1; j <= 9; j++) {
-         for(var k = j + 1; k <= 9; k++) { //checks rows
-            if(table[i][j] == table[i][k]&& table[i][j] != 0) {
-              ok = 0;
-              break;
-            }
-          }
-          for (var k = i + 1; k <= 9; k++) { //checks columns
-            if(table[i][j] == table[k][j] && table[i][j] != 0) {
-              ok = 0;
-              break;
-            }
-          }
-          if((i == 1 || i == 4 || i == 7) && (j == 1 || j == 4 || j == 7)) { //checks 3x3 blocks
-              for(var a = i; a <= i + 2; a++) {
-                  for(var b = j; b <= j + 2; b++) {
-                      for(var c = a; c <= i + 2; c++) {
-                          for(var d = b + 1; d <= j + 2; d++) {
-                              if(table[a][b] == table[c][d] && table[a][b] != 0) {
-                                  ok = 0;
-                                  break;
-                              }
-                          }
-                      }
-                  }
-              }
-          }
-      }
-  }
-  if (ok == 1) {
+  if (checkByRows() == 1 && checkByColumns() == 1 && checkByBlocks() == 1) {
     return 1;
   }
   return 0;
+}
+
+function checkByBlocks() {
+  for (var i = 1; i <= 7; i += 3) {
+    for (var j = 1; j <= 7; j += 3) {
+      for (var a = i; a <= i + 2; a++) {
+        for (var b = j; b <= j + 2; b++) {
+          for (var c = a; c <= i + 2; c++) {
+            for (var d = b + 1; d <= j + 2; d++) {
+              if (table[a][b] == table[c][d] && table[a][b] != 0) {
+                  return 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  return 1;
+}
+
+function checkByRows() {
+  for (var i = 1; i <= 9; i++) {
+    for (var j = 1; j <= 9; j++) {
+       for (var k = j + 1; k <= 9; k++) {
+          if (table[i][j] == table[i][k]&& table[i][j] != 0) {
+            return 0;
+          }
+        }
+    }
+  }
+  return 1;
+}
+
+function checkByColumns() {
+  for (var i = 1; i <= 9; i++) {
+    for (var j = 1; j <= 9; j++) {
+      for (var k = i + 1; k <= 9; k++) {
+        if (table[i][j] == table[k][j] && table[i][j] != 0) {
+          return 0;
+        }
+      }
+    }
+  }
+  return 1;
 }
 
 //checks if the table is completed
