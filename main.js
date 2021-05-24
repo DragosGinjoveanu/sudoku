@@ -94,23 +94,25 @@ function introduceNumber(id) {
 
 //checks if the numbers from the board are displayed correcty
 function checkByGameRules() {
-  if (checkByRows() == 1 && checkByColumns() == 1 && checkByBlocks() == 1) {
-    return 1;
+  if (checkByRows() == 0 || checkByColumns() == 0 || checkByBlocks() == 0) {
+    return 0;
   }
-  return 0;
+  return 1;
 }
 
 function checkByBlocks() {
   for (var i = 1; i <= 7; i += 3) {
     for (var j = 1; j <= 7; j += 3) {
+      var numbers = [];
       for (var a = i; a <= i + 2; a++) {
         for (var b = j; b <= j + 2; b++) {
-          for (var c = a; c <= i + 2; c++) {
-            for (var d = b + 1; d <= j + 2; d++) {
-              if (table[a][b] == table[c][d] && table[a][b] != 0) {
-                  return 0;
-              }
-            }
+          numbers.push(table[a][b]);
+        }
+      }
+      for (var c = 0; c < numbers.length - 1; c++) {
+        for (var d = c + 1; d < numbers.legth; d++) {
+          if (numbers[a] == numbers[b] && numbers[a] != 0) {
+            return 0;
           }
         }
       }
@@ -123,7 +125,7 @@ function checkByRows() {
   for (var i = 1; i <= 9; i++) {
     for (var j = 1; j <= 9; j++) {
        for (var k = j + 1; k <= 9; k++) {
-          if (table[i][j] == table[i][k]&& table[i][j] != 0) {
+          if (table[i][j] == table[i][k] && table[i][j] != 0) {
             return 0;
           }
         }
