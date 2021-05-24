@@ -107,9 +107,10 @@ function checkByBlocks() {
          numbers.push(table[a][b]);
        }
      }
+     console.log(numbers);
      for (var c = 0; c < numbers.length - 1; c++) {
        for (var d = c + 1; d < numbers.legth; d++) {
-         if (numbers[a] == numbers[b] && numbers[a] != 0) {
+         if (numbers[c] == numbers[d] && numbers[c] != 0) {
            return 0;
          }
        }
