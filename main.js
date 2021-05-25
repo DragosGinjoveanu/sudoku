@@ -104,17 +104,17 @@ function checkByBlocks() {
     var numbers = [];
      for (var a = i; a <= i + 2; a++) {
        for (var b = j; b <= j + 2; b++) {
-         numbers.push(table[a][b]);
+         if (table[a][b] != 0)
+          numbers.push(table[a][b]);
        }
      }
-     console.log(numbers);
-     for (var c = 0; c < numbers.length - 1; c++) {
-       for (var d = c + 1; d < numbers.legth; d++) {
-         if (numbers[c] == numbers[d] && numbers[c] != 0) {
-           return 0;
-         }
-       }
-     }
+    var map = {};
+    for (var a = 0; a < numbers.length; a++) {
+        if (map[numbers[a]]){
+            return 0;
+        }
+        map[numbers[a]] = true;
+    }
    }
  }
  return 1;
