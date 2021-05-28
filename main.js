@@ -9,7 +9,7 @@ var input = 0;
 
 //returns random value (row/column) contained in a specific 3x3 block (between it's edges)
 function randomCellCoordonate(min, max) {
-  return Math.floor(Math.random() * (max - min) + min);
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 function checkByBlocks() {
