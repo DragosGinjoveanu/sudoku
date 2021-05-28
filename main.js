@@ -7,8 +7,9 @@ for (var i = 1; i <= 9; i++) {
 }
 var input = 0;
 
-function randomNumber(nr) {
-  return Math.floor(Math.random() * ((nr + 2) - nr + 1) + nr);
+//returns random value (row/column) contained in a specific 3x3 block (between it's edges)
+function randomCellCoordonate(min, max) {
+  return Math.floor(Math.random() * (max - min) + min);
 }
 
 function checkByBlocks() {
@@ -67,8 +68,8 @@ function checkByGameRules() {
 }
 
 function randomValue(i, j) {
-  var row = randomNumber(i);
-  var column = randomNumber(j); 
+  var row = randomCellCoordonate(i, i + 2);
+  var column = randomCellCoordonate(j, j + 2); 
   var nr = Math.floor(Math.random() * 9) + 1;
   table[row][column] = nr;
   if (checkByGameRules() == 1) {
