@@ -29,34 +29,21 @@ function checkByBlocks() {
  return 1;
 }
 
-function checkByRows() {
+function checkByRowsAndColumns() {
  for (var i = 1; i <= 9; i++) {
    for (var j = 1; j <= 9; j++) {
       for (var k = j + 1; k <= 9; k++) {
-         if (table[i][j] == table[i][k] && table[i][j] != 0) {
+         if ((table[i][j] == table[i][k] && table[i][j] != 0) || (table[j][i] == table[k][i] && table[j][i] != 0)) {
            return 0;
          }
-       }
-   }
- }
- return 1;
-}
-
-function checkByColumns() {
- for (var i = 1; i <= 9; i++) {
-   for (var j = 1; j <= 9; j++) {
-     for (var k = i + 1; k <= 9; k++) {
-       if (table[i][j] == table[k][j] && table[i][j] != 0) {
-         return 0;
-       }
-     }
+      }
    }
  }
  return 1;
 }
 
 function checkByGameRules() {
- if (checkByRows() == 0 || checkByColumns() == 0 || checkByBlocks() == 0) {
+ if (checkByRowsAndColumns() == 0 || checkByBlocks() == 0) {
    return 0;
  }
  return 1;
