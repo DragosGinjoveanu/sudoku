@@ -7,11 +7,6 @@ for (var i = 1; i <= 9; i++) {
 }
 var input = 0;
 
-//returns random value (row/column) contained in a specific 3x3 block (between it's edges)
-function randomCellCoordonate(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
 function checkByBlocks() {
  for (var i = 1; i <= 7; i += 3) {
     for (var j = 1; j <= 7; j += 3) {
@@ -67,7 +62,15 @@ function checkByGameRules() {
  return 1;
 }
 
-function randomValue(i, j) {
+//returns a random row/column to determine a specific cell (from a specific block)
+//min represents the block's beggining and max it's ending
+function randomCellCoordonate(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+//displays 1 random number contained by a 3x3 block
+function displayRandomNumber(i, j) {
+  //generates the number's cell
   var row = randomCellCoordonate(i, i + 2);
   var column = randomCellCoordonate(j, j + 2); 
   var nr = Math.floor(Math.random() * 9) + 1;
@@ -78,16 +81,16 @@ function randomValue(i, j) {
     document.getElementById(id).className = "btn btn-danger btn-lg";
   } else {
     table[row][column] = 0;
-    randomValue(i, j);
+    displayRandomNumber(i, j);
   }
 }
 
-//+ function randomValue() randomly displays numbers by game rules
+//displays 3 random numbers (by game rules) in each 3x3 block 
 function randomise() {
     for (var i = 1; i <= 7; i += 3) {
       for (var j = 1; j <= 7; j += 3) {
           for (var a = 1; a <= 3; a++) {
-            randomValue(i, j);
+            displayRandomNumber(i, j);
           }
       }
     }
