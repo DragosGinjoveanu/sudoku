@@ -8,45 +8,46 @@ for (var i = 1; i <= 9; i++) {
 var input = 0;
 
 function checkByBlocks() {
- for (var i = 1; i <= 7; i += 3) {
+  for (var i = 1; i <= 7; i += 3) {
     for (var j = 1; j <= 7; j += 3) {
-    var numbers = [];
-     for (var a = i; a <= i + 2; a++) {
-       for (var b = j; b <= j + 2; b++) {
-         if (table[a][b] != 0)
-          numbers.push(table[a][b]);
-       }
-     }
-    var map = {};
-    for (var a = 0; a < numbers.length; a++) {
+      var numbers = [];
+      for (var a = i; a <= i + 2; a++) {
+        for (var b = j; b <= j + 2; b++) {
+          if (table[a][b] != 0) {
+            numbers.push(table[a][b]);
+          }
+        }
+      }
+      var map = {};
+      for (var a = 0; a < numbers.length; a++) {
         if (map[numbers[a]]){
             return 0;
         }
         map[numbers[a]] = true;
+      }
     }
-   }
- }
- return 1;
+  }
+  return 1;
 }
 
 function checkByRowsAndColumns() {
- for (var i = 1; i <= 9; i++) {
-   for (var j = 1; j <= 9; j++) {
+  for (var i = 1; i <= 9; i++) {
+    for (var j = 1; j <= 9; j++) {
       for (var k = j + 1; k <= 9; k++) {
-         if ((table[i][j] == table[i][k] && table[i][j] != 0) || (table[j][i] == table[k][i] && table[j][i] != 0)) {
-           return 0;
-         }
+        if ((table[i][j] == table[i][k] && table[i][j] != 0) || (table[j][i] == table[k][i] && table[j][i] != 0)) {
+          return 0;
+        }
       }
-   }
- }
- return 1;
+    }
+  }
+  return 1;
 }
 
 function checkByGameRules() {
- if (checkByRowsAndColumns() == 0 || checkByBlocks() == 0) {
-   return 0;
- }
- return 1;
+  if (checkByRowsAndColumns() == 0 || checkByBlocks() == 0) {
+    return 0;
+  }
+  return 1;
 }
 
 //returns a random row/column to determine a specific cell (from a specific block)
@@ -74,13 +75,13 @@ function displayRandomNumber(i, j) {
 
 //displays 3 random numbers (by game rules) in each 3x3 block 
 function randomise() {
-    for (var i = 1; i <= 7; i += 3) {
-      for (var j = 1; j <= 7; j += 3) {
-          for (var a = 1; a <= 3; a++) {
-            displayRandomNumber(i, j);
-          }
+  for (var i = 1; i <= 7; i += 3) {
+    for (var j = 1; j <= 7; j += 3) {
+      for (var a = 1; a <= 3; a++) {
+        displayRandomNumber(i, j);
       }
     }
+  }
 }
 
 //creates playing board
@@ -90,21 +91,21 @@ function loadTable() {
       <tr></tr>
     `)
     for (var j = 1; j <= 9; j++) {
-        $('#table').append(`
-          <td><button type="button" class="btn btn-success btn-lg" id = "` + i + + j +`" onclick = "introduceNumber(id);">0</button></td>
-        `);
+      $('#table').append(`
+        <td><button type="button" class="btn btn-success btn-lg" id = "` + i + + j +`" onclick = "introduceInput(id);">0</button></td>
+      `);
     }
   }
   for (var i = 1; i <= 9; i++) {
     $('#buttons').append(`
-      <td><button type="button" class="btn btn-secondary btn-lg" id = "`+ i + `" onclick = "inputNumber(id);">`+ i +`</button></td>
+      <td><button type="button" class="btn btn-secondary btn-lg" id = "`+ i + `" onclick = "getInputNumber(id);">`+ i +`</button></td>
     `);
   }
   randomise();
 }
 
 //stocks the selected number
-function inputNumber(id) {
+function getInputNumber(id) {
   input = parseInt(id);
   document.getElementById("input").innerHTML = "Selected number: " + input;
   document.getElementById("input").style.color = "green";  
@@ -127,8 +128,8 @@ function gameStatus() {
   }
 }
 
-//introduces selected number to table
-function introduceNumber(id) {
+//introduces selected number to table (if the game rules allow it)
+function introduceInput(id) {
   var row = Math.floor(parseInt(id) / 10);
   var column = Math.floor(parseInt(id) % 10);
   if (input == 0) {
@@ -147,7 +148,7 @@ function introduceNumber(id) {
       table[row][column] = 0;
     }
   } else {
-    document.getElementById("status").innerHTML = "Not allowed";
+    document.getElementById("status").innerHTML = "Please click on an empty cell!";
     document.getElementById("status").style.color = "red"; 
   }
 }
