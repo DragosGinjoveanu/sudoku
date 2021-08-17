@@ -1,25 +1,25 @@
 var table = [];
-for (var i = 1; i <= 9; i++) {
+for (let i = 1; i <= 9; i++) {
     table[i] = [];
-    for (var j = 1; j <= 9; j++) {
+    for (let j = 1; j <= 9; j++) {
         table[i][j] = 0;
     }
 }
 var input = 0;
 
 function checkByBlocks() {
-  for (var i = 1; i <= 7; i += 3) {
-    for (var j = 1; j <= 7; j += 3) {
-      var numbers = [];
-      for (var a = i; a <= i + 2; a++) {
-        for (var b = j; b <= j + 2; b++) {
+  for (let i = 1; i <= 7; i += 3) {
+    for (let j = 1; j <= 7; j += 3) {
+      let numbers = [];
+      for (let a = i; a <= i + 2; a++) {
+        for (let b = j; b <= j + 2; b++) {
           if (table[a][b] != 0) {
             numbers.push(table[a][b]);
           }
         }
       }
-      var map = {};
-      for (var a = 0; a < numbers.length; a++) {
+      let map = {};
+      for (let a = 0; a < numbers.length; a++) {
         if (map[numbers[a]]){
             return 0;
         }
@@ -31,9 +31,9 @@ function checkByBlocks() {
 }
 
 function checkByRowsAndColumns() {
-  for (var i = 1; i <= 9; i++) {
-    for (var j = 1; j <= 9; j++) {
-      for (var k = j + 1; k <= 9; k++) {
+  for (let i = 1; i <= 9; i++) {
+    for (let j = 1; j <= 9; j++) {
+      for (let k = j + 1; k <= 9; k++) {
         if ((table[i][j] == table[i][k] && table[i][j] != 0) || (table[j][i] == table[k][i] && table[j][i] != 0)) {
           return 0;
         }
@@ -59,12 +59,12 @@ function randomCellCoordonate(min, max) {
 //displays 1 random number contained by a 3x3 block
 function displayRandomNumber(i, j) {
   //generates the number's cell
-  var row = randomCellCoordonate(i, i + 2);
-  var column = randomCellCoordonate(j, j + 2); 
-  var nr = Math.floor(Math.random() * 9) + 1;
+  const row = randomCellCoordonate(i, i + 2);
+  const column = randomCellCoordonate(j, j + 2);
+  const nr = Math.floor(Math.random() * 9) + 1;
   table[row][column] = nr;
   if (checkByGameRules() == 1) {
-    var id = row + String(column);
+    const id = row + String(column);
     document.getElementById(id).innerHTML = nr;
     document.getElementById(id).className = "btn btn-danger btn-lg";
   } else {
@@ -75,9 +75,9 @@ function displayRandomNumber(i, j) {
 
 //displays 3 random numbers (by game rules) in each 3x3 block 
 function randomise() {
-  for (var i = 1; i <= 7; i += 3) {
-    for (var j = 1; j <= 7; j += 3) {
-      for (var a = 1; a <= 3; a++) {
+  for (let i = 1; i <= 7; i += 3) {
+    for (let j = 1; j <= 7; j += 3) {
+      for (let a = 1; a <= 3; a++) {
         displayRandomNumber(i, j);
       }
     }
@@ -86,17 +86,17 @@ function randomise() {
 
 //creates playing board
 function loadTable() {
-  for (var i = 1; i <= 9; i++) {
+  for (let i = 1; i <= 9; i++) {
     $('#table').append(`
       <tr></tr>
-    `)
-    for (var j = 1; j <= 9; j++) {
+    `);
+    for (let j = 1; j <= 9; j++) {
       $('#table').append(`
         <td><button type="button" class="btn btn-success btn-lg" id = "` + i + + j +`" onclick = "introduceInput(id);">0</button></td>
       `);
     }
   }
-  for (var i = 1; i <= 9; i++) {
+  for (let i = 1; i <= 9; i++) {
     $('#buttons').append(`
       <td><button type="button" class="btn btn-secondary btn-lg" id = "`+ i + `" onclick = "getInputNumber(id);">`+ i +`</button></td>
     `);
@@ -113,9 +113,9 @@ function getInputNumber(id) {
 
 //checks if the table is completed
 function gameStatus() {
-  var ok = 1;
-  for (var i = 1; i <= 9; i++) {
-    for (var j = 1; j <= 9; j++) {
+  let ok = 1;
+  for (let i = 1; i <= 9; i++) {
+    for (let j = 1; j <= 9; j++) {
       if (table[i][j] == 0) {
         ok = 0;
         break;
@@ -130,8 +130,8 @@ function gameStatus() {
 
 //introduces selected number to table (if the game rules allow it)
 function introduceInput(id) {
-  var row = Math.floor(parseInt(id) / 10);
-  var column = Math.floor(parseInt(id) % 10);
+  const row = Math.floor(parseInt(id) / 10);
+  const column = Math.floor(parseInt(id) % 10);
   if (input == 0) {
     document.getElementById("input").innerHTML = "Select a number to introduce!"; 
     document.getElementById("input").style.color = "red"; 
